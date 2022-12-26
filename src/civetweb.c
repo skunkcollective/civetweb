@@ -185,13 +185,14 @@ mg_static_assert(sizeof(void *) >= sizeof(int), "data type size check");
 #include <time.h>
 
 #include <ctype.h>
-#include <net/socket.h>
-#include <posix/pthread.h>
-#include <posix/time.h>
+#include <zephyr/posix/sys/socket.h>
+#include <zephyr/posix/pthread.h>
+#include <zephyr/posix/time.h>
+#include <zephyr/posix/poll.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <zephyr.h>
+#include <zephyr/kernel.h>
 
 #include <fcntl.h>
 
@@ -205,7 +206,7 @@ mg_static_assert(sizeof(void *) >= sizeof(int), "data type size check");
 #if defined(USE_STACK_SIZE) && (USE_STACK_SIZE > 1)
 #define ZEPHYR_STACK_SIZE USE_STACK_SIZE
 #else
-#define ZEPHYR_STACK_SIZE (1024 * 16)
+#define ZEPHYR_STACK_SIZE (1024 * 8)
 #endif
 
 K_THREAD_STACK_DEFINE(civetweb_main_stack, ZEPHYR_STACK_SIZE);
